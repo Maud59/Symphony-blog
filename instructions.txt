@@ -1,0 +1,4 @@
+Créer un blog avec 3 articles qui comprennent titre, resumé, contenu, image de couverture, auteur et date
+
+Affichage sour forme de liste et un bouton pour le détail sur une nouvelle page
+Bouton pour supprimer l'article

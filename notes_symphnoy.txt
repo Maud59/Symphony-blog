@@ -1,0 +1,99 @@
+**Symphony**
+
+**STRUCTURE DE FICHIERS**
+
+Le dossier web est le seul dossier public de notre projet. 
+Le dossier assets est le dossier pour nos images et css.
+
+Le dossier vendor est le dossier des dépendances (bibliothèques).
+
+Si un jour, le projet symphony déconne, supprimer les fichiers vendor et var.
+
+Le dossier tests est le dossier comprenant tous nos tests. 
+
+Le dossier src est le coeur de notre application. 
+
+Le dossier app contient toute la config de notre appli. 
+
+Le dossier ressources/vues contiendra nos vues. 
+
+TWIG est un moteur de templating (interpollation, data binding). 
+
+**INSTALLATION**
+
+Synphony installer n'est dispo que sur symphony 3. 
+
+Utiliser l'installation du site symphony.com
+
+Créer un projet à partir de la commande. (Comme sur le site)
+
+**ARCHITECTURE ET BASES**
+
+Les fichiers de symphony sont en extension .type.twig
+Le fichier base est notre index.html général. Il contiendra les liens vers nos css, bootstrap, javascript etc. 
+
+- La nomenclature des variables et constantes :
+{{ variable et constante}}
+{% action/block %}
+{# commentaire #}
+{% endblock %}
+
+La concaténation se fait avec un {{  ~""~  }}
+exemple : <h3>Salut {{ prenom ~" "~ nom }}</h3> donne => Maud Vasseur
+
+**CONFIGURATION**
+La variable parent() dans les {{block stylesheets ou javascript}} permet d'utiliser les paramètres déjà prédéfinis dans le fichier base.html. 
+Injection des meta bootstrap pour également les appeler dans le fichier index.html.twig
+
+Le controler a comme méthodes des actions. La requete vers le http  et revient vers le client.
+Une action retourne toujours un return .json ou un .twig.
+Le render permet de renvoyer un rendu de template. 
+
+Attention les routes sont notées en annotation pour être interprêtées. Dans le fichier routing.yml, le fichier configue automatiquement les annotations. 
+
+Créer une route : dans src/defaultControllers
+    /**
+     * @Route("/aston", name="aston")
+     */
+
+    public function astonAction(){
+        return $this->render('default/aston.html.twig');
+    }
+
+    /**
+    * @Route("/article/{id}", name="article", requirements={"id"="\d+"})
+     */
+
+     La route ici, prend en paramètre l'id de notre article sur lequel on clique. 
+
+     /**
+     * @Route("/",name="blog")
+     */
+    public function AstonBlogAction(){
+
+        return $this->render('default/blog.html.twig',['articles'=>$articles]);
+    }
+
+    Cette route est celle par défaut. Elle enverra des éléments à notre page html. (le tableau article en l'occurrence).
+
+Créer un controller : 
+Il est important d'importer les use et les controller dans notre controller.
+le $this renvoie au controller, il faut donc extends à la class controller. 
+La route précédemment créée est ajoutée dans la class AstonController. 
+
+pour appeler les routes dans des liens 
+<a href="/aston">Vers Aston</a><br>
+<a href={{ path('aston') }}>Vers l'accueil</a>
+<a href={{ path('route.name',{'param':paramvalue}) }}>Vers l'accueil bis avec param</a>
+
+Le dernier lien permet de rajouter des paramètres dans les liens (ex : aston/id=1)
+
+
+Image :
+<img src="{{ asset('img/eclair.jpg') }}" class="w-100">
+
+boucle for :
+{% for item in items %}
+{{item.title}}
+{%endfor%}
+

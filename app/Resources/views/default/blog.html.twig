@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            Le blog d'Aston
+        </a>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Blog - lien 1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Blog - lien 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Blog - lien 3</a>
+            </li>
+        </ul>
+    </nav>
+        <img src="{{ asset('img/eclair.jpg') }}" class="w-100" style="margin-top:-700px">
+
+    {% for article in articles %}
+    <div class="card" style="width: 18rem;">
+        <img src="asset('img/{{ article.img }}')" class="card-img-top" alt="Image de banquise">
+        <div class="card-body">
+            <h4 class="card-title">{{ article.title }}</h4>
+            <h6 class="card-subtitle">{{ article.autor }}</h6>
+            <h6 class="card-subtitle">{{ article.date }}</h6>
+            <p class="card-text">{{ article.resume }}</p>
+            <a class="btn btn-light" href={{ path('article',{'id':article.id } ) }}>Par ici</a>
+        </div>
+    </div>
+    {%endfor%}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
